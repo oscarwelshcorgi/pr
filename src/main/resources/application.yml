@@ -1,12 +1,16 @@
 server:
   port: 8080 #port? ?? ??? ??? ?? ??
+  ssl:
+    key-store-type: PKCS12
+    key-store: classpath:keystore.p12
+    key-store-password: tjfmstkf1@
 
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/study_db?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Seoul
-    username: root
-    password: 1234
+    url: jdbc:mysql://122.38.239.60:3310/dongga_db?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Seoul
+    username: dongga_admin1
+    password: tjfmstkf1@
 
   jpa:
     show-sql: true
@@ -26,4 +30,4 @@ spring:
 
 logging:
   level:
-    org.hibernate.orm.jdbc.bind: trace
+    org.hibernate.orm.jdbc.bind: debug

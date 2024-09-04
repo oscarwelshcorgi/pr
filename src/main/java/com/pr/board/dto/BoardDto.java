@@ -21,4 +21,7 @@ public class BoardDto {
     private LocalDateTime updateDate;
     private String deleteYn;
     private int viewCount;
+    private Long previousBoardId;
+    private Long nextBoardId;
+    private String boardCode;
 }

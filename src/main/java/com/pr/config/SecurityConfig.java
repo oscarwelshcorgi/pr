@@ -46,11 +46,13 @@ public class SecurityConfig { //WebSecurityConfigurerAdapter was deprecated
                 )
                 .oauth2Login(oauth2Login ->
                         oauth2Login.userInfoEndpoint(userInfoEndpointConfig -> // oauth2 로그인 성공 후 가져올 때의 설정들
-                                userInfoEndpointConfig.userService(memberService) // 리소스 서버에서 사용자 정보를 가져온 상태에서 추가로 진행하고자 하는 기능 명시
-                        )
-                                .defaultSuccessUrl("http://localhost:3030") // 로그인 후 vue 서버(3030)으로 리다이렉트
+                                        userInfoEndpointConfig.userService(memberService) // 리소스 서버에서 사용자 정보를 가져온 상태에서 추가로 진행하고자 하는 기능 명시
+                                )
+                                //.defaultSuccessUrl("http://localhost:3030") // 로그인 후 vue 서버(3030)으로 리다이렉트(개발)
+                                .defaultSuccessUrl("https://dongga.net") // 로그인 후 리다이렉트(운영)
                 )
-                .logout((logout) -> logout.logoutSuccessUrl("http://localhost:3030")) // 로그아웃 후 vue 서버(3030)으로 리다이렉트
+                //.logout((logout) -> logout.logoutSuccessUrl("http://localhost:3030")) // 로그아웃 후 vue 서버(3030)으로 리다이렉트(개발)
+                .logout((logout) -> logout.logoutSuccessUrl("https://dongga.net")) // 로그아웃 후 리다이렉트(운영)
         ;
         return http.build();
     }
@@ -60,7 +62,11 @@ public class SecurityConfig { //WebSecurityConfigurerAdapter was deprecated
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
-        config.addAllowedOrigin("http://localhost:3030");
+        config.addAllowedOrigin("http://localhost:3030"); //개발
+        config.addAllowedOrigin("https://dongga.net"); //운영
+        config.addAllowedOrigin("https://www.dongga.net"); //운영
+        config.addAllowedOrigin("https://dongga.net:8080"); //운영
+        config.addAllowedOrigin("https://www.dongga.net:8080"); //운영
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
         source.registerCorsConfiguration("/**", config);

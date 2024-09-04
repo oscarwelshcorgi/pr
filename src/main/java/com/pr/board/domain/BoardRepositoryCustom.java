@@ -13,7 +13,7 @@ import org.springframework.util.StringUtils;
 
 import java.util.List;
 
-import static com.pr.board.domain.QBoard.board;
+import static com.pr.board.domain.QArticle.article;
 import static com.pr.member.domain.QMemberInfo.memberInfo;
 
 @RequiredArgsConstructor
@@ -21,17 +21,17 @@ import static com.pr.member.domain.QMemberInfo.memberInfo;
 public class BoardRepositoryCustom {
     private final JPAQueryFactory queryFactory;
 
-    public Page<Board> findAllBySearchCondition(Pageable pageable, SearchCondition searchCondition) {
-        JPAQuery<Board> query = queryFactory.selectFrom(board)
+    public Page<Article> findAllBySearchCondition(Pageable pageable, SearchCondition searchCondition) {
+        JPAQuery<Article> query = queryFactory.selectFrom(article)
                 .where(searchKeywords(searchCondition.getSk(), searchCondition.getSv()));
 
         long total = query.stream().count();   //여기서 전체 카운트 후 아래에서 조건작업
 
-        List<Board> results = query
+        List<Article> results = query
                 .where(searchKeywords(searchCondition.getSk(), searchCondition.getSv()))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
-                .orderBy(board.id.desc())
+                .orderBy(article.id.desc())
                 .fetch();
 
         return new PageImpl<>(results, pageable, total);
@@ -44,11 +44,11 @@ public class BoardRepositoryCustom {
             }
         } else if ("title".equals(sk)) {
             if(StringUtils.hasLength(sv)) {
-                return board.title.contains(sv);
+                return article.title.contains(sv);
             }
         } else if ("content".equals(sk)) {
             if(StringUtils.hasLength(sv)) {
-                return board.content.contains(sv);
+                return article.content.contains(sv);
             }
         }
 
