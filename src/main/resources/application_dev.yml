@@ -1,9 +1,5 @@
 server:
   port: 8080 #port? ?? ??? ??? ?? ??
-  ssl:
-    key-store-type: PKCS12
-    key-store: classpath:keystore.p12
-    key-store-password: tjfmstkf1@
 
 spring:
   datasource:
@@ -30,5 +26,4 @@ spring:
 
 logging:
   level:
-    org.hibernate.orm.jdbc.bind: debug
-
+    org.hibernate.orm.jdbc.bind: info

@@ -1,6 +1,7 @@
-package com.pr.board.domain;
+package com.pr.humor.board.domain;
 
 import com.pr.config.SearchCondition;
+import com.pr.humor.board.domain.QHumorArticle;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -13,25 +14,24 @@ import org.springframework.util.StringUtils;
 
 import java.util.List;
 
-import static com.pr.board.domain.QArticle.article;
 import static com.pr.member.domain.QMemberInfo.memberInfo;
 
 @RequiredArgsConstructor
 @Repository
-public class BoardRepositoryCustom {
+public class HumorBoardRepositoryCustom {
     private final JPAQueryFactory queryFactory;
 
-    public Page<Article> findAllBySearchCondition(Pageable pageable, SearchCondition searchCondition) {
-        JPAQuery<Article> query = queryFactory.selectFrom(article)
+    public Page<HumorArticle> findAllBySearchCondition(Pageable pageable, SearchCondition searchCondition) {
+        JPAQuery<HumorArticle> query = queryFactory.selectFrom(QHumorArticle.humorArticle)
                 .where(searchKeywords(searchCondition.getSk(), searchCondition.getSv()));
 
         long total = query.stream().count();   //여기서 전체 카운트 후 아래에서 조건작업
 
-        List<Article> results = query
+        List<HumorArticle> results = query
                 .where(searchKeywords(searchCondition.getSk(), searchCondition.getSv()))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
-                .orderBy(article.id.desc())
+                .orderBy(QHumorArticle.humorArticle.id.desc())
                 .fetch();
 
         return new PageImpl<>(results, pageable, total);
@@ -44,11 +44,11 @@ public class BoardRepositoryCustom {
             }
         } else if ("title".equals(sk)) {
             if(StringUtils.hasLength(sv)) {
-                return article.title.contains(sv);
+                return QHumorArticle.humorArticle.title.contains(sv);
             }
         } else if ("content".equals(sk)) {
             if(StringUtils.hasLength(sv)) {
-                return article.content.contains(sv);
+                return QHumorArticle.humorArticle.content.contains(sv);
             }
         }
 

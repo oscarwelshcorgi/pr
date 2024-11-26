@@ -79,7 +79,7 @@ CREATE TABLE board (
 );
 
 -- article 테이블 생성
-CREATE TABLE article (
+CREATE TABLE humor_article (
 	id int auto_increment not null primary key comment 'PK',
     title varchar(500) not null comment '제목',
     content text not null comment '내용',

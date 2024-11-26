@@ -1,4 +1,4 @@
-package com.pr.board.model;
+package com.pr.humor.board.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

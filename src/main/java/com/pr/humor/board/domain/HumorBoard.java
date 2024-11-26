@@ -1,4 +1,4 @@
-package com.pr.board.domain;
+package com.pr.humor.board.domain;
 
 import com.pr.member.domain.MemberInfo;
 import jakarta.persistence.*;
@@ -10,9 +10,9 @@ import java.time.LocalDateTime;
 
 @Data
 @Entity
-@Table(name = "article")
+@Table(name = "humor_article")
 @NoArgsConstructor
-public class Article {
+public class HumorBoard {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,7 +40,7 @@ public class Article {
     private MemberInfo memberInfo;
 
     @Builder
-    public Article(Long id, String title, String content, String email, LocalDateTime createDate, LocalDateTime updateDate, String deleteYn, int viewCount, String boardCode, MemberInfo memberInfo) {
+    public HumorBoard(Long id, String title, String content, String email, LocalDateTime createDate, LocalDateTime updateDate, String deleteYn, int viewCount, String boardCode, MemberInfo memberInfo) {
         this.id = id;
         this.title = title;
         this.content = content;
